@@ -18,7 +18,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Home, People, Warning, WarningAmber } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
-import TableComp from './TableComp';
+
+import { Link, Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -116,9 +117,9 @@ export default function DrawerComp() {
       >
         <DrawerHeader sx={{ backgroundColor: 'warning.main' }}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' 
-            ? <ChevronLeftIcon sx={{ color: pink[50] }} /> 
-            : <ChevronRightIcon sx={{ color: pink[50] }} />}
+            {theme.direction === 'ltr'
+              ? <ChevronLeftIcon sx={{ color: pink[50] }} />
+              : <ChevronRightIcon sx={{ color: pink[50] }} />}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -126,14 +127,18 @@ export default function DrawerComp() {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon><Home /></ListItemIcon>
-              <ListItemText primary='หน้าหลัก' />
+              <Link to={"/"} style={{ textDecoration: 'none', color: 'black' }}  >
+                <ListItemText primary='หน้าหลัก' />
+              </Link>
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon><People /></ListItemIcon>
-              <ListItemText primary='บุคลากร' />
+              <Link to={"/EmployeePage"} style={{ textDecoration: 'none', color: 'black' }}  >
+                <ListItemText primary='บุคลากร' />
+              </Link>
             </ListItemButton>
           </ListItem>
 
@@ -150,7 +155,7 @@ export default function DrawerComp() {
       <Main open={open}>
         <DrawerHeader />
 
-        <TableComp />
+        <Outlet />
 
         {/* <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
