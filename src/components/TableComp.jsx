@@ -57,7 +57,7 @@ const rows = [
   createData('Brazil', 'BR', 210147125, 8515767),
 ];
 
-export default function TableComp() {
+export default function TableComp({ data }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -70,54 +70,51 @@ export default function TableComp() {
     setPage(0);
   };
 
+  // React.useEffect(() => {
+  //   console.log("data", data);
+  // }, []);
+
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
+    <>
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">รายละเอียดปัญหา</TableCell>
+                <TableCell align="center">เบอร์ติดต่อ</TableCell>
+                <TableCell align="center">เวลารับเรื่อง</TableCell>
+                <TableCell align="right">ประเภท</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((task) => (
+                <TableRow
+                  key={task._id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  {column.label}
-                </TableCell>
+                  <TableCell align="left">{task.detail}</TableCell>
+                  <TableCell align="center">{task.phone}</TableCell>
+                  <TableCell align="center">{task.startDate_timeStamp}</TableCell>
+                  <TableCell align="right">{task.type}</TableCell>
+                </TableRow>
               ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </>
+
+
+
   );
 }

@@ -1,8 +1,11 @@
 import React from 'react'
+import TableDropDown from './components/TableDropdown'
 
 function TypePage() {
   return (
-    <div>TypePage</div>
+    <>
+      <TableDropDown /> 
+    </>
   )
 }
 

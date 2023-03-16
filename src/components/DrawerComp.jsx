@@ -124,30 +124,32 @@ export default function DrawerComp() {
         </DrawerHeader>
         <Divider />
         <List >
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon><Home /></ListItemIcon>
-              <Link to={"/"} style={{ textDecoration: 'none', color: 'black' }}  >
+          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}  >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon><Home /></ListItemIcon>
                 <ListItemText primary='หน้าหลัก' />
-              </Link>
-            </ListItemButton>
-          </ListItem>
+              </ListItemButton>
+            </ListItem>
+          </Link>
 
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon><People /></ListItemIcon>
-              <Link to={"/EmployeePage"} style={{ textDecoration: 'none', color: 'black' }}  >
+          <Link to="/EmployeePage" style={{ textDecoration: 'none', color: 'black' }}  >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon><People /></ListItemIcon>
                 <ListItemText primary='บุคลากร' />
-              </Link>
-            </ListItemButton>
-          </ListItem>
+              </ListItemButton>
+            </ListItem>
+          </Link>
 
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon><WarningAmber /></ListItemIcon>
-              <ListItemText primary='ประเภทปัญหา' />
-            </ListItemButton>
-          </ListItem>
+          <Link to="/TypePage" style={{ textDecoration: 'none', color: 'black' }}  >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon><WarningAmber /></ListItemIcon>
+                <ListItemText primary='ประเภทปัญหา' />
+              </ListItemButton>
+            </ListItem>
+          </Link>
 
         </List>
 
