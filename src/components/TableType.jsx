@@ -57,7 +57,7 @@ const rows = [
   createData('Brazil', 'BR', 210147125, 8515767),
 ];
 
-export default function TableComp({ data }) {
+export default function TableType({ data }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -81,22 +81,18 @@ export default function TableComp({ data }) {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-                <TableCell align="left">รายละเอียดปัญหา</TableCell>
-                <TableCell align="center">เบอร์ติดต่อ</TableCell>
-                <TableCell align="center">เวลารับเรื่อง</TableCell>
-                <TableCell align="right">ประเภท</TableCell>
+                <TableCell align="left">โค๊ด</TableCell>
+                <TableCell align="center">ชื่อประเภท</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((task) => (
+              {data.map((type) => (
                 <TableRow
-                  key={task._id}
+                  key={type._id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell align="left">{task.detail}</TableCell>
-                  <TableCell align="center">{task.phone}</TableCell>
-                  <TableCell align="center">{task.startDate_timeStamp}</TableCell>
-                  <TableCell align="right">{task.type}</TableCell>
+                  <TableCell align="left">{type.code}</TableCell>
+                  <TableCell align="center">{type.name}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -113,8 +109,5 @@ export default function TableComp({ data }) {
         />
       </Paper>
     </>
-
-
-
   );
 }

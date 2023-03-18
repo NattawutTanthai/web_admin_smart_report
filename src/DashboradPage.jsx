@@ -1,19 +1,18 @@
 import Axios from '../constants/axiosConfig';
 import React, { useEffect, useState } from 'react'
-import TableComp from './components/TableComp'
-import TableDropDown from './components/TableDropdown';
+import TableTask from './components/TableTask';
 
 function DashboradPage() {
   const [tasks, setTasks] = useState([]);
 
   const getTasks = () => {
     Axios.get('/task')
-    .then(
-      (res) => {
-        console.log(res.data);
-        setTasks(res.data)
-      }
-    )
+      .then(
+        (res) => {
+          console.log(res.data);
+          setTasks(res.data);
+        }
+      )
   }
 
   useEffect(() => {
@@ -22,8 +21,7 @@ function DashboradPage() {
 
   return (
     <>
-      {/* <TableComp data={tasks} /> */}
-      <TableDropDown data={tasks} /> 
+      <TableTask data={tasks} />
     </>
   )
 }
