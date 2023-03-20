@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,11 +13,14 @@ import CreateIcon from '@mui/icons-material/Create';
 import Axios from '../../constants/axiosConfig';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import { TextField, Typography } from '@mui/material';
+import ModalEdit from './ModalEdit';
 
 export default function TableEmp({ data }) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [open, setOpen] = React.useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [open, setOpen] = useState(false);
+  const [types, setTypes] = useState([]);
 
   const styleModal = {
     position: 'absolute',
@@ -40,6 +43,20 @@ export default function TableEmp({ data }) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const getType = () => {
+    Axios.get('/type')
+      .then(
+        (res) => {
+          console.log(res.data);
+          setTypes(res.data);
+        }
+      )
+  }
+
+  useEffect(() => {
+    getType();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -101,11 +118,33 @@ export default function TableEmp({ data }) {
                     aria-labelledby="parent-modal-title"
                     aria-describedby="parent-modal-description"
                   >
-                    <Box sx={styleModal}>
-                      <h2 id="parent-modal-title">Text in a modal</h2>
-                      <p id="parent-modal-description">
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                      </p>
+                    <Box sx={...styleModal}>
+                      <div className='space-y-5'>
+                        <Typography gutterBottom variant='h5'>แก้ไขรายชื่อ</Typography>
+                        <TextField fullWidth label="ชื่อ" defaultValue={emp.fname} variant="outlined" color="warning" />
+                        <TextField fullWidth label="นามสกุล" defaultValue={emp.lname} variant="outlined" color="warning" />
+                        <TextField fullWidth label="เบอร์ติดต่อ" defaultValue={emp.phone} variant="outlined" color="warning" />
+                        <TextField fullWidth label="Username" defaultValue={emp.username} variant="outlined" color="warning" />
+                        <TextField
+                          fullWidth
+                          select
+                          label="ประเภท"
+                          defaultValue={emp.type}
+                          SelectProps={{
+                            native: true,
+                          }}
+                        >
+                          {types.map((type) => (
+                            <option key={type._id} value={type.name}>
+                              {type.name}
+                            </option>
+                          ))}
+                        </TextField>
+                        <div className='flex flex-row space-x-2 justify-center'>
+                          <Button variant="contained" color='success' fullWidth>บันทึก</Button>
+                          <Button variant="contained" color='error' fullWidth onClick={handleClose}>ยกเลิก</Button>
+                        </div>
+                      </div>
                     </Box>
                   </Modal>
                 </>
@@ -114,7 +153,7 @@ export default function TableEmp({ data }) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[10, 25, 50, 100]}
           component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}
@@ -128,3 +167,4 @@ export default function TableEmp({ data }) {
     </>
   );
 }
+
