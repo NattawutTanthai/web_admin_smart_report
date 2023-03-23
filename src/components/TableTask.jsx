@@ -41,7 +41,7 @@ function Row(props) {
     }
 
     return (
-        <React.Fragment>
+        <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
                 <TableCell>
                     <IconButton
@@ -94,7 +94,7 @@ function Row(props) {
                     </Collapse>
                 </TableCell>
             </TableRow>
-        </React.Fragment>
+        </>
     );
 }
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createTheme, styled, useTheme } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,16 +10,18 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Home, People, Warning, WarningAmber } from '@mui/icons-material';
+import { Home, People, WarningAmber } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
 
 import { Link, Outlet } from 'react-router-dom';
+import { Fab } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -97,9 +99,19 @@ export default function DrawerComp() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Smart report
-          </Typography>
+          <div className='flex flex-row justify-between w-full'>
+            <div className='mt-2'>
+              <Typography variant="h6" noWrap >
+                KMUTNB Smart report
+              </Typography>
+            </div>
+            <Link to='/LoginPage'>
+              <Fab variant="extended" color='error'>
+                <LogoutIcon sx={{ mr: 1 }} />
+                ออกจากระบบ
+              </Fab>
+            </Link>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -159,9 +171,6 @@ export default function DrawerComp() {
 
         <Outlet />
 
-        {/* <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-        </Typography> */}
       </Main>
     </Box>
   );
