@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -159,6 +160,15 @@ export default function DrawerComp() {
               <ListItemButton>
                 <ListItemIcon><WarningAmber /></ListItemIcon>
                 <ListItemText primary='ประเภทปัญหา' />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          <Link to="/AdminPage" style={{ textDecoration: 'none', color: 'black' }}  >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon><AdminPanelSettingsIcon /></ListItemIcon>
+                <ListItemText primary='แอดมิน' />
               </ListItemButton>
             </ListItem>
           </Link>

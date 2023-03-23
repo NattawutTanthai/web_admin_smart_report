@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import logo from './assets/images/logo_smart_report.png';
+import logo from '../assets/images/logo_smart_report.png';
 import { Link } from 'react-router-dom';
 function Copyright(props) {
   return (

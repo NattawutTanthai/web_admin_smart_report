@@ -28,7 +28,7 @@ export default function TableEmp({ data }) {
   const [type, setType] = useState("");
 
   const [open, setOpen] = useState(false);
-  const [loading , setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [types, setTypes] = useState([]);
@@ -73,6 +73,7 @@ export default function TableEmp({ data }) {
   };
 
   const handleSave = () => {
+    setOpen(false);
     setLoading(true);
     console.log("fname", fname, "lname", lname, "phone", phone, "username", username, "type", type);
     if (flagModal) {
@@ -86,7 +87,6 @@ export default function TableEmp({ data }) {
       })
         .then(
           (res) => {
-            setOpen(false);
             setLoading(false);
             console.log(res.data);
             alert("บันทึกเสร็จสิ้นแล้ว!!!");
@@ -103,7 +103,6 @@ export default function TableEmp({ data }) {
       })
         .then(
           (res) => {
-            setOpen(false);
             setLoading(false);
             console.log(res.data);
             alert("แก้ไขเสร็จสิ้นแล้ว!!!");
@@ -116,15 +115,19 @@ export default function TableEmp({ data }) {
 
   const handleDelete = (id) => {
     console.log("delete", id);
-    setLoading(true);
-    Axios.delete(`/employee/${id}`)
-      .then(
-        () => {
-          setLoading(false);
-          alert("ลบเสร็จสิ้นแล้ว!!!");
-          window.location.reload();
-        }
-      )
+    let text = "คุณแน่ใจว่าคุณต้องการจะลบข้อมูล?";
+    if (confirm(text) == true) {
+      setLoading(true);
+      Axios.delete(`/employee/${id}`)
+        .then(
+          () => {
+            setLoading(false);
+            alert("ลบเสร็จสิ้นแล้ว!!!");
+            window.location.reload();
+          }
+        )
+    }
+
   }
   const handleAdd = () => {
     setFlagModal(true);
@@ -212,7 +215,7 @@ export default function TableEmp({ data }) {
             {
               flagModal ? (
                 <TextField fullWidth label="Password" type="password" defaultValue={username} onChange={(e) => setUsername(e.target.value)} variant="outlined" color="warning" />
-            ) : null
+              ) : null
             }
 
             <TextField

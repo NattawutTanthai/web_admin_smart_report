@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Fab, Modal, TextField, Typography } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Fab, Modal, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { green } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
@@ -71,6 +71,7 @@ export default function TableType({ data }) {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
   const [types, setTypes] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [dataModal, setDataModal] = useState({});
 
   const handleOpen = () => setOpen(true);
@@ -122,11 +123,14 @@ export default function TableType({ data }) {
   }
 
   const handleSave = () => {
+    setOpen(false)
+    setLoading(true);
     console.log("save", type);
     if (flagModal) {
       Axios.post('/type', { name: type })
         .then(
           res => {
+            setLoading(false);
             alert("บันทึกเสร็จสิ้น!!!");
             window.location.reload();
           }
@@ -135,6 +139,7 @@ export default function TableType({ data }) {
       Axios.put(`/type/${dataModal._id}`, { name: type })
         .then(
           () => {
+            setLoading(false);
             alert("แก้ไขเสร็จสิ้น!!!");
             window.location.reload();
           }
@@ -144,13 +149,19 @@ export default function TableType({ data }) {
   }
 
   const handleDelete = (id) => {
-    Axios.delete(`/type/${id}`)
-      .then(
-        () => {
-          alert("ลบเสร็จสิ้นแล้ว!!!");
-          window.location.reload();
-        }
-      )
+    let text = "คุณแน่ใจว่าคุณต้องการจะลบข้อมูล?";
+    if (confirm(text) == true) {
+      setLoading(true);
+      Axios.delete(`/type/${id}`)
+        .then(
+          () => {
+            setLoading(false);
+            alert("ลบเสร็จสิ้นแล้ว!!!");
+            window.location.reload();
+          }
+        )
+    }
+
   }
 
   const handleAdd = () => {
@@ -232,6 +243,13 @@ export default function TableType({ data }) {
       }} color='success'>
         <AddIcon />
       </Fab>
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }
