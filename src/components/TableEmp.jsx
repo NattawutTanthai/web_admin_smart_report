@@ -194,7 +194,7 @@ export default function TableEmp({ data }) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={...styleModal}>
+        <Box sx={styleModal}>
           <div className='space-y-5'>
             <Typography gutterBottom variant='h5'>แก้ไขรายชื่อ</Typography>
             <TextField fullWidth label="ชื่อ" defaultValue={fname} onChange={(e) => setFname(e.target.value)} variant="outlined" color="warning" />

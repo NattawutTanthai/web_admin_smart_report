@@ -198,7 +198,7 @@ export default function TableType({ data }) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={...styleModal}>
+        <Box sx={styleModal}>
           <div className='space-y-5'>
             <Typography gutterBottom variant='h5'>แก้ไขรายชื่อ</Typography>
 
