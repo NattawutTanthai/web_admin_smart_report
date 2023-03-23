@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Axios from "../constants/axiosConfig";
 import TableEmp from "./components/TableEmp";
@@ -21,6 +22,9 @@ function EmployeePage() {
 
   return (
     <>
+    <Typography variant='h5' gutterBottom>
+      รายการ รายชื่อบุคลากร
+    </Typography>
       <TableEmp data={employees} />
     </>
   )

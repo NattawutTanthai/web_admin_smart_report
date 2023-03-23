@@ -1,6 +1,7 @@
 import Axios from '../constants/axiosConfig';
 import React, { useEffect, useState } from 'react'
 import TableTask from './components/TableTask';
+import { Typography } from '@mui/material';
 
 function DashboradPage() {
   const [tasks, setTasks] = useState([]);
@@ -21,6 +22,9 @@ function DashboradPage() {
 
   return (
     <>
+    <Typography variant='h5' gutterBottom>
+      รายการปัญหา
+    </Typography>
       <TableTask data={tasks} />
     </>
   )

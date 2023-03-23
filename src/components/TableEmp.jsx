@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Axios from '../../constants/axiosConfig';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { Fab, TextField, Typography } from '@mui/material';
+import { Backdrop, CircularProgress, Fab, TextField, Typography } from '@mui/material';
 import { green } from '@mui/material/colors';
 
 export default function TableEmp({ data }) {
@@ -27,9 +27,10 @@ export default function TableEmp({ data }) {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
 
+  const [open, setOpen] = useState(false);
+  const [loading , setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [open, setOpen] = useState(false);
   const [types, setTypes] = useState([]);
   const [dataModal, setDataModal] = useState({});
 
@@ -72,6 +73,7 @@ export default function TableEmp({ data }) {
   };
 
   const handleSave = () => {
+    setLoading(true);
     console.log("fname", fname, "lname", lname, "phone", phone, "username", username, "type", type);
     if (flagModal) {
       Axios.post('/employee', {
@@ -84,6 +86,8 @@ export default function TableEmp({ data }) {
       })
         .then(
           (res) => {
+            setOpen(false);
+            setLoading(false);
             console.log(res.data);
             alert("บันทึกเสร็จสิ้นแล้ว!!!");
             window.location.reload();
@@ -99,6 +103,8 @@ export default function TableEmp({ data }) {
       })
         .then(
           (res) => {
+            setOpen(false);
+            setLoading(false);
             console.log(res.data);
             alert("แก้ไขเสร็จสิ้นแล้ว!!!");
             window.location.reload();
@@ -110,9 +116,11 @@ export default function TableEmp({ data }) {
 
   const handleDelete = (id) => {
     console.log("delete", id);
+    setLoading(true);
     Axios.delete(`/employee/${id}`)
       .then(
         () => {
+          setLoading(false);
           alert("ลบเสร็จสิ้นแล้ว!!!");
           window.location.reload();
         }
@@ -230,6 +238,13 @@ export default function TableEmp({ data }) {
           </div>
         </Box>
       </Modal>
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
 
       <Fab onClick={() => handleAdd()} sx={{
         position: 'absolute',

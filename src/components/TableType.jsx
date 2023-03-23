@@ -65,7 +65,7 @@ const rows = [
 ];
 
 export default function TableType({ data }) {
-  const [flagModal, setFlagModal] = useState(true);
+  const [flagModal, setFlagModal] = useState(true); // true = add, false = edit
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
@@ -123,13 +123,24 @@ export default function TableType({ data }) {
 
   const handleSave = () => {
     console.log("save", type);
-    Axios.put(`/type/${dataModal._id}`, { name: type })
-      .then(
-        () => {
-          alert("บันทึกเสร็จสิ้น!!!");
-          window.location.reload();
-        }
-      )
+    if (flagModal) {
+      Axios.post('/type', { name: type })
+        .then(
+          res => {
+            alert("บันทึกเสร็จสิ้น!!!");
+            window.location.reload();
+          }
+        )
+    } else {
+      Axios.put(`/type/${dataModal._id}`, { name: type })
+        .then(
+          () => {
+            alert("แก้ไขเสร็จสิ้น!!!");
+            window.location.reload();
+          }
+        )
+    }
+
   }
 
   const handleDelete = (id) => {
@@ -200,31 +211,8 @@ export default function TableType({ data }) {
       >
         <Box sx={styleModal}>
           <div className='space-y-5'>
-            <Typography gutterBottom variant='h5'>แก้ไขรายชื่อ</Typography>
-
-            {
-              flagModal ? (
-                <TextField fullWidth label="Type" defaultValue={type} onChange={(e) => setType(e.target.value)} variant="outlined" color="warning" />
-              ) : (
-                <TextField
-                  fullWidth
-                  select
-                  label="ประเภท"
-                  defaultValue={type}
-                  SelectProps={{
-                    native: true,
-                  }}
-                  onChange={(e) => setType(e.target.value)}
-                >
-                  {types.map((type) => (
-                    <option key={type._id} value={type.name}>
-                      {type.name}
-                    </option>
-                  ))}
-                </TextField>
-              )
-            }
-
+            <Typography gutterBottom variant='h5'>{flagModal ? ("สร้างรายชื่อ") : ("แก้ไขรายชื่อ")}</Typography>
+            <TextField fullWidth label="ประเภท" defaultValue={type} onChange={(e) => setType(e.target.value)} variant="outlined" color="warning" />
             <div className='flex flex-row space-x-2 justify-center'>
               <Button variant="contained" color='success' fullWidth onClick={() => handleSave()}>บันทึก</Button>
               <Button variant="contained" color='error' fullWidth onClick={handleClose}>ยกเลิก</Button>

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import Axios from '../constants/axiosConfig';
 import TableType from './components/TableType'
@@ -21,6 +22,9 @@ function TypePage() {
 
   return (
     <>
+    <Typography variant='h5' gutterBottom>
+      รายการ ประเภทปัญหา
+    </Typography>
       <TableType data={types} />
     </>
   )
