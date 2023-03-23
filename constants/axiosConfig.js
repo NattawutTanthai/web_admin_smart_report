@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const Axios = axios.create({
-  baseURL: 'http://localhost:3333'
+  baseURL: 'https://api-smart-report-a292s4k94-nattawuttanthai.vercel.app'
 });
 
 export default Axios;
