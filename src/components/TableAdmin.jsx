@@ -105,7 +105,6 @@ export default function TableAdmin({ data }) {
                 .then(
                     () => {
                         setLoading(false);
-                        alert("ลบเสร็จสิ้นแล้ว!!!");
                         window.location.reload();
                     }
                 )

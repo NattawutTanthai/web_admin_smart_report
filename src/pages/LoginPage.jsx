@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logo from '../assets/images/logo_smart_report.png';
-import { Link } from 'react-router-dom';
+import Axios from '../../constants/axiosConfig';
+import { useNavigate, Link } from "react-router-dom";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -23,14 +24,23 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function LoginPage() {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    Axios.post('/admin/login', {
+      username: data.get('username'),
+      password: data.get('password')
+    })
+      .then((res) => {
+        console.log(res)
+        alert('เข้าสู่ระบบสำเร็จ!');
+        navigate('/');
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   };
 
   return (
@@ -53,9 +63,8 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              label="Username"
+              name="username"
               autoFocus
             />
             <TextField
@@ -65,18 +74,18 @@ export default function SignIn() {
               name="password"
               label="Password"
               type="password"
-              autoComplete="current-password"
             />
-            <Link to="/">
-              <Button
-                fullWidth
-                variant="contained"
-                color='warning'
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Login
-              </Button>
-            </Link>
+            {/* <Link to="/"> */}
+            <Button
+              type='submit'
+              fullWidth
+              variant="contained"
+              color='warning'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Login
+            </Button>
+            {/* </Link> */}
           </Box>
         </Box>
       </Container>
