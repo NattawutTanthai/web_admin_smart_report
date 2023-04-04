@@ -36,7 +36,7 @@ export default function LoginPage() {
       .then((res) => {
         console.log(res)
         alert('เข้าสู่ระบบสำเร็จ!');
-        navigate('/');
+        navigate('/Dashborad');
       })
       .catch((err) => {
         console.error(err)

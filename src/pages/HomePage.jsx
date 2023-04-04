@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import TableTask from '../components/TableTask';
 import { Backdrop, CircularProgress, Typography } from '@mui/material';
 
-function DashboradPage() {
+function HomePage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -41,4 +41,4 @@ function DashboradPage() {
   )
 }
 
-export default DashboradPage
+export default HomePage

@@ -21,8 +21,12 @@ import ListItemText from '@mui/material/ListItemText';
 import { Home, People, WarningAmber } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
 
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import { Fab } from '@mui/material';
+import AdminPage from '../pages/AdminPage';
+import EmployeePage from '../pages/EmployeePage';
+import TypePage from '../pages/TypePage';
+import HomePage from '../pages/HomePage';
 
 const drawerWidth = 240;
 
@@ -106,7 +110,7 @@ export default function DrawerComp() {
                 KMUTNB Smart report
               </Typography>
             </div>
-            <Link to='/LoginPage'>
+            <Link to='/'>
               <Fab variant="extended" color='error'>
                 <LogoutIcon sx={{ mr: 1 }} />
                 ออกจากระบบ
@@ -137,7 +141,7 @@ export default function DrawerComp() {
         </DrawerHeader>
         <Divider />
         <List >
-          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}  >
+          <Link to="/Dashborad/HomePage" style={{ textDecoration: 'none', color: 'black' }}  >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon><Home /></ListItemIcon>
@@ -146,7 +150,7 @@ export default function DrawerComp() {
             </ListItem>
           </Link>
 
-          <Link to="/EmployeePage" style={{ textDecoration: 'none', color: 'black' }}  >
+          <Link to="/Dashborad/EmployeePage" style={{ textDecoration: 'none', color: 'black' }}  >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon><People /></ListItemIcon>
@@ -155,7 +159,7 @@ export default function DrawerComp() {
             </ListItem>
           </Link>
 
-          <Link to="/TypePage" style={{ textDecoration: 'none', color: 'black' }}  >
+          <Link to="/Dashborad/TypePage" style={{ textDecoration: 'none', color: 'black' }}  >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon><WarningAmber /></ListItemIcon>
@@ -164,7 +168,7 @@ export default function DrawerComp() {
             </ListItem>
           </Link>
 
-          <Link to="/AdminPage" style={{ textDecoration: 'none', color: 'black' }}  >
+          <Link to="/Dashborad/AdminPage" style={{ textDecoration: 'none', color: 'black' }}  >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon><AdminPanelSettingsIcon /></ListItemIcon>
@@ -179,7 +183,13 @@ export default function DrawerComp() {
       <Main open={open}>
         <DrawerHeader />
 
-        <Outlet />
+        {/* <Outlet /> */}
+        <Routes>
+          <Route path="/EmployeePage" element={<EmployeePage />} />
+          <Route path="/TypePage" element={<TypePage />} />
+          <Route path="/AdminPage" element={<AdminPage />} />
+          <Route path="/HomePage" element={<HomePage />} />
+        </Routes>
 
       </Main>
     </Box>
