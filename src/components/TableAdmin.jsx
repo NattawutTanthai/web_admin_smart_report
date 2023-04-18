@@ -82,7 +82,7 @@ export default function TableAdmin({ data }) {
                 fname: fname,
                 lname: lname,
                 phone: phone,
-                username: username
+                username: username,
             })
                 .then(
                     (res) => {

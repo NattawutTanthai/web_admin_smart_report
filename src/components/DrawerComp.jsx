@@ -18,7 +18,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Home, People, WarningAmber } from '@mui/icons-material';
+import { FmdBad, Home, People, WarningAmber } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
 
 import { Link, Route, Routes } from 'react-router-dom';
@@ -27,6 +27,7 @@ import AdminPage from '../pages/AdminPage';
 import EmployeePage from '../pages/EmployeePage';
 import TypePage from '../pages/TypePage';
 import HomePage from '../pages/HomePage';
+import MainPage from '../pages/MainPage';
 
 const drawerWidth = 240;
 
@@ -141,11 +142,21 @@ export default function DrawerComp() {
         </DrawerHeader>
         <Divider />
         <List >
-          <Link to="/Dashborad/HomePage" style={{ textDecoration: 'none', color: 'black' }}  >
+
+          <Link to="/Dashborad/MainPage" style={{ textDecoration: 'none', color: 'black' }}  >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon><Home /></ListItemIcon>
                 <ListItemText primary='หน้าหลัก' />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          <Link to="/Dashborad/HomePage" style={{ textDecoration: 'none', color: 'black' }}  >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon><FmdBad /></ListItemIcon>
+                <ListItemText primary='รายการปัญหา' />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -189,6 +200,7 @@ export default function DrawerComp() {
           <Route path="/TypePage" element={<TypePage />} />
           <Route path="/AdminPage" element={<AdminPage />} />
           <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/MainPage" element={<MainPage />} />
         </Routes>
 
       </Main>
