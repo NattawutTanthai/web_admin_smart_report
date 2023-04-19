@@ -73,10 +73,6 @@ export default function MainPage() {
           <Grid item xs={6}>
             <BarChart />
           </Grid>
-          <Grid item xs={6}>
-          </Grid>
-          <Grid item xs={6}>
-          </Grid>
         </Grid>
       </Box>
 
