@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logo from '../assets/images/logo_smart_report.png';
 import Axios from '../../constants/axiosConfig';
 import { useNavigate, Link } from "react-router-dom";
+import { Backdrop, CircularProgress } from '@mui/material';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -25,9 +26,12 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function LoginPage() {
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = new FormData(event.currentTarget);
     Axios.post('/admin/login', {
       username: data.get('username'),
@@ -36,6 +40,7 @@ export default function LoginPage() {
       .then((res) => {
         console.log(res)
         alert('เข้าสู่ระบบสำเร็จ!');
+        setLoading(false);
         navigate('/Dashborad/MainPage');
       })
       .catch((err) => {
@@ -90,6 +95,12 @@ export default function LoginPage() {
         </Box>
       </Container>
       <Copyright />
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </ThemeProvider>
   );
 }

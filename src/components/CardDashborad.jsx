@@ -2,8 +2,6 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
-import Axios from '../../constants/axiosConfig';
 import Paper from '@mui/material/Paper';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -14,45 +12,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function CardDashborad() {
-    const [waitReport, setWaitReport] = useState(null);
-    const [process, setProcess] = useState(null);
-    const [success, setSuccess] = useState(null);
-
-    const getWaitReport = async () => {
-        await Axios.get('waitReport/count')
-            .then((res) => {
-                setWaitReport(res.data[0].count);
-            })
-            .catch((err) => {
-                console.log("waitReport" + err);
-            });
-    }
-    const getProcess = async () => {
-        await Axios.get('process/count')
-            .then((res) => {
-                setProcess(res.data[0].count);
-            })
-            .catch((err) => {
-                console.log("process" + err);
-            });
-    }
-    const getSuccess = async () => {
-        await Axios.get('success/count')
-            .then((res) => {
-                setSuccess(res.data[0].count);
-            })
-            .catch((err) => {
-                console.log("success" + err);
-            });
-    }
-
-    useEffect(() => { //getdata
-        getWaitReport();
-        getProcess();
-        getSuccess();
-    }, []);
-
+export default function CardDashborad({ waitReport, process, success, sentTo }) {
     return (
         <>
             <Box sx={{ width: '100%' }}>
@@ -64,7 +24,7 @@ export default function CardDashborad() {
                                 <b>รอรับเรื่อง</b>
                             </Typography>
                             <Typography variant="h6" color="text.secondary">
-                                ทั้งหมด {waitReport ?? "0"} รายการ
+                                {waitReport ?? "0"} รายการ
                             </Typography>
                         </Item>
                     </Grid>
@@ -74,7 +34,7 @@ export default function CardDashborad() {
                                 <b>ดำเนินการ</b>
                             </Typography>
                             <Typography variant="h6" color="text.danger">
-                                ทั้งหมด {process ?? "0"} รายการ
+                                {process ?? "0"} รายการ
                             </Typography>
                         </Item>
                     </Grid>
@@ -84,7 +44,7 @@ export default function CardDashborad() {
                                 <b>เสร็จสิ้น</b>
                             </Typography>
                             <Typography variant="h6" color="text.secondary">
-                                ทั้งหมด {success ?? "0"} รายการ
+                                {success ?? "0"} รายการ
                             </Typography>
                         </Item>
                     </Grid>
@@ -94,7 +54,7 @@ export default function CardDashborad() {
                                 <b>ส่งต่อ</b>
                             </Typography>
                             <Typography variant="h6" color="text.secondary">
-                                ทั้งหมด 65 รายการ
+                                {sentTo} รายการ
                             </Typography>
                         </Item>
                     </Grid>
