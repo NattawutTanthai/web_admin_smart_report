@@ -1,9 +1,10 @@
-import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import { useEffect, useState } from 'react';
+import Axios from '../../constants/axiosConfig';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,6 +15,44 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function CardDashborad() {
+    const [waitReport, setWaitReport] = useState(null);
+    const [process, setProcess] = useState(null);
+    const [success, setSuccess] = useState(null);
+
+    const getWaitReport = async () => {
+        await Axios.get('waitReport/count')
+            .then((res) => {
+                setWaitReport(res.data[0].count);
+            })
+            .catch((err) => {
+                console.log("waitReport" + err);
+            });
+    }
+    const getProcess = async () => {
+        await Axios.get('process/count')
+            .then((res) => {
+                setProcess(res.data[0].count);
+            })
+            .catch((err) => {
+                console.log("process" + err);
+            });
+    }
+    const getSuccess = async () => {
+        await Axios.get('success/count')
+            .then((res) => {
+                setSuccess(res.data[0].count);
+            })
+            .catch((err) => {
+                console.log("success" + err);
+            });
+    }
+
+    useEffect(() => {
+        getWaitReport();
+        getProcess();
+        getSuccess();
+    }, []);
+
     return (
         <>
             <Box sx={{ width: '100%' }}>
@@ -25,17 +64,17 @@ export default function CardDashborad() {
                                 <b>รอรับเรื่อง</b>
                             </Typography>
                             <Typography variant="h6" color="text.secondary">
-                                ทั้งหมด 56 รายการ
+                                ทั้งหมด {waitReport ?? "0"} รายการ
                             </Typography>
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item sx={{ backgroundColor: '#79AFFF' }}>
                             <Typography gutterBottom variant="h5" component="div">
-                            <b>ดำเนินการ</b>
+                                <b>ดำเนินการ</b>
                             </Typography>
                             <Typography variant="h6" color="text.danger">
-                                ทั้งหมด 6 รายการ
+                                ทั้งหมด {process ?? "0"} รายการ
                             </Typography>
                         </Item>
                     </Grid>
@@ -45,7 +84,7 @@ export default function CardDashborad() {
                                 <b>เสร็จสิ้น</b>
                             </Typography>
                             <Typography variant="h6" color="text.secondary">
-                                ทั้งหมด 4 รายการ
+                                ทั้งหมด {success ?? "0"} รายการ
                             </Typography>
                         </Item>
                     </Grid>
