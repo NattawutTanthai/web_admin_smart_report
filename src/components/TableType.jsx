@@ -221,7 +221,7 @@ export default function TableType({ data }) {
       >
         <Box sx={styleModal}>
           <div className='space-y-5'>
-            <Typography gutterBottom variant='h5'>{flagModal ? ("สร้างรายชื่อ") : ("แก้ไขรายชื่อ")}</Typography>
+            <Typography gutterBottom variant='h5'>{flagModal ? ("เพิ่มประเภทปัญหา") : ("แก้ไขประเภทปัญหา")}</Typography>
             <TextField fullWidth label="ประเภท" defaultValue={type} onChange={(e) => setType(e.target.value)} variant="outlined" color="warning" />
             <div className='flex flex-row space-x-2 justify-center'>
               <Button variant="contained" color='success' fullWidth onClick={() => handleSave()}>บันทึก</Button>

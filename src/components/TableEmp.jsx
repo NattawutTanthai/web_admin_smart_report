@@ -206,7 +206,7 @@ export default function TableEmp({ data }) {
       >
         <Box sx={styleModal}>
           <div className='space-y-5'>
-            <Typography gutterBottom variant='h5'>แก้ไขรายชื่อ</Typography>
+            <Typography gutterBottom variant='h5'>{flagModal ? ("เพิ่มรายชื่อบุคลากร") : ("แก้ไขรายชื่อบุคลากร")}</Typography>
             <TextField fullWidth label="ชื่อ" defaultValue={fname} onChange={(e) => setFname(e.target.value)} variant="outlined" color="warning" />
             <TextField fullWidth label="นามสกุล" defaultValue={lname} onChange={(e) => setLname(e.target.value)} variant="outlined" color="warning" />
             <TextField fullWidth label="เบอร์ติดต่อ" defaultValue={phone} onChange={(e) => setPhone(e.target.value)} variant="outlined" color="warning" />
