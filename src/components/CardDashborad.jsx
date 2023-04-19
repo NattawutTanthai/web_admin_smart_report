@@ -47,7 +47,7 @@ export default function CardDashborad() {
             });
     }
 
-    useEffect(() => {
+    useEffect(() => { //getdata
         getWaitReport();
         getProcess();
         getSuccess();
