@@ -107,6 +107,15 @@ function Row(props) {
                                             .unix(task.startDate_timeStamp)
                                             .format('D MMM BBBB เวลา HH:mm น.')}
                                     </Typography>
+                                    <Typography variant="h7" gutterBottom component="div">
+                                        {
+                                            task.point >= 1 ? (
+                                                `คะแนน : ${task.point}`
+                                            ) : (
+                                                "คะแนน : ยังไม่ให้คะแนน"
+                                            )
+                                        }
+                                    </Typography>
                                 </Box>
                             </Box>
                         </Box>
