@@ -110,7 +110,7 @@ function Row(props) {
                                     <Typography variant="h7" gutterBottom component="div">
                                         {
                                             task.point >= 1 ? (
-                                                `คะแนน : ${task.point}`
+                                                `คะแนน : ${task.point} คะแนน`
                                             ) : (
                                                 "คะแนน : ยังไม่ให้คะแนน"
                                             )
