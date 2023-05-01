@@ -11,6 +11,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
+import TextIncrease from '@mui/icons-material/TextIncrease';
+import TextDecrease from '@mui/icons-material/TextDecrease';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
@@ -22,12 +24,13 @@ import { FmdBad, Home, People, WarningAmber } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
 
 import { Link, Route, Routes } from 'react-router-dom';
-import { Fab } from '@mui/material';
+import { Fab, createTheme } from '@mui/material';
 import AdminPage from '../pages/AdminPage';
 import EmployeePage from '../pages/EmployeePage';
 import TypePage from '../pages/TypePage';
 import HomePage from '../pages/HomePage';
 import MainPage from '../pages/MainPage';
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -81,7 +84,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function DrawerComp() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
+  const [font, setFont] = useState(16);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -90,6 +94,22 @@ export default function DrawerComp() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const root = document.documentElement;
+
+  const handleDecreaseFont = () => {
+    setFontSize(font - 2);
+    setFont(font - 2);
+  }
+
+  const handleIncreaseFont = () => {
+    setFontSize(font + 2);
+    setFont(font + 2);
+  }
+
+  const setFontSize = (size) => {
+    root.style.fontSize = size + 'px';
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -111,12 +131,24 @@ export default function DrawerComp() {
                 KMUTNB Smart report
               </Typography>
             </div>
-            <Link to='/'>
-              <Fab variant="extended" color='error'>
-                <LogoutIcon sx={{ mr: 1 }} />
-                ออกจากระบบ
-              </Fab>
-            </Link>
+            <div className='flex justify-end'>
+              <div className='mx-2'>
+                <Fab variant="extended" color='info' onClick={() => { handleIncreaseFont() }}>
+                  <TextIncrease />
+                </Fab>
+              </div>
+              <div className='mx-2'>
+                <Fab variant="extended" color='info' onClick={() => { handleDecreaseFont() }}>
+                  <TextDecrease />
+                </Fab>
+              </div>
+              <Link to='/'>
+                <Fab variant="extended" color='error'>
+                  <LogoutIcon sx={{ mr: 1 }} />
+                  ออกจากระบบ
+                </Fab>
+              </Link>
+            </div>
           </div>
         </Toolbar>
       </AppBar>

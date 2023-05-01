@@ -12,6 +12,10 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
+Item.typography = {
+    fontSize: '10rem',
+};
+
 export default function CardDashborad({ waitReport, process, success, sentTo }) {
     return (
         <>
@@ -19,7 +23,6 @@ export default function CardDashborad({ waitReport, process, success, sentTo }) 
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={6}>
                         <Item sx={{ backgroundColor: '#FFD457' }}>
-
                             <Typography gutterBottom variant="h5" component="div">
                                 <b>รอรับเรื่อง</b>
                             </Typography>
